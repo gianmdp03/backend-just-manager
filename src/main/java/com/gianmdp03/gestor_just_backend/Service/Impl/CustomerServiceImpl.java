@@ -25,9 +25,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public CustomerDetailDTO addCustomer(CustomerRequestDTO customerRequestDTO) {
-        if(customerRepository.existsByPhoneNumber(customerRequestDTO.getPhoneNumber())){
+        if(customerRepository.existsByPhoneNumber(customerRequestDTO.getPhoneNumber()))
             throw new ConflictException("Phone number already exists");
-        }
         Customer customer = customerRepository.save(customerMapper.toEntity(customerRequestDTO));
         return customerMapper.toDetailDto(customer);
     }
@@ -35,15 +34,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Page<CustomerListDTO> listCustomers(Pageable pageable) {
         Page<Customer> list = customerRepository.findAll(pageable);
-        if(list.isEmpty()){
+        if(list.isEmpty())
             throw new NotFoundException("List is empty");
-        }
         return list.map(customerMapper::toListDto);
     }
 
     @Override
     @Transactional
     public void deleteCustomer(Long id) {
-        customerRepository.delete(customerRepository.findById(id).orElseThrow(() -> new NotFoundException("ID does not exist")));
+        customerRepository.delete(customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer ID does not exist")));
     }
 }
