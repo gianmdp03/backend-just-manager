@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "ubications")
+@Table(name = "locations")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Ubication {
+public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,11 +22,11 @@ public class Ubication {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "ubication")
+    @OneToMany(mappedBy = "location")
     private List<InventoryItem> inventoryItem = new ArrayList<>();
 
     @Builder
-    public Ubication(String name) {
+    public Location(String name) {
         this.name = name;
     }
 }

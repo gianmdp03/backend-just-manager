@@ -1,4 +1,4 @@
-package com.gianmdp03.gestor_just_backend.DTO.Ubication;
+package com.gianmdp03.gestor_just_backend.DTO.Location;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UbicationRequestDTO {
+public class LocationRequestDTO {
     @NotBlank
     private String name;
 }

@@ -16,7 +16,7 @@ public class InventoryItemRequestDTO {
     private Long productId;
 
     @NotNull
-    private Long ubicationId;
+    private Long locationId;
 
     @NotNull
     private int stock;

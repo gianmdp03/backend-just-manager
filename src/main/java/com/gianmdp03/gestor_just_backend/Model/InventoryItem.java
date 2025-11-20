@@ -23,8 +23,8 @@ public class InventoryItem {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "ubication_id")
-    private Ubication ubication;
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     @Column(nullable = false)
     private int stock;
@@ -33,9 +33,9 @@ public class InventoryItem {
     private LocalDate expireDate;
 
     @Builder
-    public InventoryItem(Product product, Ubication ubication, int stock, LocalDate expireDate) {
+    public InventoryItem(Product product, Location location, int stock, LocalDate expireDate) {
         this.product = product;
-        this.ubication = ubication;
+        this.location = location;
         this.stock = stock;
         this.expireDate = expireDate;
     }
