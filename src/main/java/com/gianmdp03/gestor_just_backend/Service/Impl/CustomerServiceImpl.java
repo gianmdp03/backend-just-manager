@@ -42,6 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public void deleteCustomer(Long id) {
-        customerRepository.delete(customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer ID does not exist")));
+        customerRepository.delete(customerRepository.findById(id).orElseThrow
+                (() -> new NotFoundException("Customer ID does not exist")));
     }
 }

@@ -87,8 +87,7 @@ public class InventoryItemServiceImpl implements InventoryItemService {
     @Override
     @Transactional
     public void deleteInventoryItem(Long id) {
-        InventoryItem inventoryItem = inventoryItemRepository.findById(id).orElseThrow
-                (() -> new NotFoundException("InventoryItem ID does not exist"));
-        inventoryItemRepository.delete(inventoryItem);
+        inventoryItemRepository.delete(inventoryItemRepository.findById(id).orElseThrow
+                (() -> new NotFoundException("InventoryItem ID does not exist")));
     }
 }
