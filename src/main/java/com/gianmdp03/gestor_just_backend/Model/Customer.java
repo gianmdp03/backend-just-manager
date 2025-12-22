@@ -28,7 +28,6 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();
 
-    @Builder
     public Customer(String name, String lastname, String phoneNumber) {
         this.name = name;
         this.lastname = lastname;

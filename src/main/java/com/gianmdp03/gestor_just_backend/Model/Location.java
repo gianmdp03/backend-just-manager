@@ -25,7 +25,6 @@ public class Location {
     @OneToMany(mappedBy = "location")
     private List<InventoryItem> inventoryItems = new ArrayList<>();
 
-    @Builder
     public Location(String name) {
         this.name = name;
     }

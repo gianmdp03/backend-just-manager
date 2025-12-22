@@ -27,7 +27,6 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private List<Order> orders = new ArrayList<>();
 
-    @Builder
     public Product(String name, String imageUrl) {
         this.name = name;
         this.imageUrl = imageUrl;

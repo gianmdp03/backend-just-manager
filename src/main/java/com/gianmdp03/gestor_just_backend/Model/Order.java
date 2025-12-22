@@ -42,7 +42,6 @@ public class Order {
     )
     private List<Product> products = new ArrayList<>();
 
-    @Builder
     public Order(BigDecimal amount, String description, LocalDate saleDate, Customer customer) {
         this.amount = amount;
         this.description = description;
