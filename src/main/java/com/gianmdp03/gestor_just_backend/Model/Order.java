@@ -1,13 +1,12 @@
 package com.gianmdp03.gestor_just_backend.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class Order {
     private String description;
 
     @Column(nullable = false)
-    private LocalDate saleDate;
+    private LocalDateTime saleDate;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -42,7 +41,7 @@ public class Order {
     )
     private List<Product> products = new ArrayList<>();
 
-    public Order(BigDecimal amount, String description, LocalDate saleDate, Customer customer) {
+    public Order(BigDecimal amount, String description, LocalDateTime saleDate, Customer customer) {
         this.amount = amount;
         this.description = description;
         this.saleDate = saleDate;

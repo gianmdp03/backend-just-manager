@@ -1,7 +1,6 @@
 package com.gianmdp03.gestor_just_backend.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +25,8 @@ public class Product {
 
     @ManyToMany(mappedBy = "products")
     private List<Order> orders = new ArrayList<>();
+
+    private boolean active = true;
 
     public Product(String name, String imageUrl) {
         this.name = name;
