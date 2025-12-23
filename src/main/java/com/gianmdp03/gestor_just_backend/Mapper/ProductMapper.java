@@ -7,11 +7,10 @@ import com.gianmdp03.gestor_just_backend.model.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {OrderMapper.class})
-public interface ProductMapper {
+@Mapper(componentModel = "spring")
+public abstract class ProductMapper {
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "orders", ignore = true)
-    Product toEntity(ProductRequestDTO dto);
-    ProductDetailDTO toDetailDto(Product entity);
-    ProductListDTO toListDto(Product entity);
+    public abstract Product toEntity(ProductRequestDTO dto);
+    public abstract ProductDetailDTO toDetailDto(Product entity);
+    public abstract ProductListDTO toListDto(Product entity);
 }

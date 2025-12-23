@@ -5,12 +5,22 @@ import com.gianmdp03.gestor_just_backend.dto.inventoryitem.InventoryItemRequestD
 import com.gianmdp03.gestor_just_backend.model.InventoryItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 @Mapper(componentModel = "spring")
-public interface InventoryItemMapper {
+public abstract class InventoryItemMapper {
+    @Autowired
+    @Lazy
+    private ProductMapper productMapper;
+
+    @Autowired
+    @Lazy
+    private LocationMapper locationMapper;
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "product", ignore = true)
     @Mapping(target = "location", ignore = true)
-    InventoryItem toEntity(InventoryItemRequestDTO dto);
-    InventoryItemListDTO toListDto(InventoryItem entity);
+    public abstract InventoryItem toEntity(InventoryItemRequestDTO dto);
+    public abstract InventoryItemListDTO toListDto(InventoryItem entity);
 }

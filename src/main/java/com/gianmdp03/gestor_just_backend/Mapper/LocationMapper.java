@@ -8,11 +8,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {InventoryItemMapper.class})
-public interface LocationMapper {
+public abstract class LocationMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "inventoryItems", ignore = true)
-    Location toEntity(LocationRequestDTO dto);
-    LocationDetailDTO toDetailDto(Location entity);
-    LocationListDTO toListDto(Location entity);
+    public abstract Location toEntity(LocationRequestDTO dto);
+    public abstract LocationDetailDTO toDetailDto(Location entity);
+    public abstract LocationListDTO toListDto(Location entity);
 
 }
