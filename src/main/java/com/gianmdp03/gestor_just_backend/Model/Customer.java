@@ -25,7 +25,7 @@ public class Customer {
     @Column(nullable = false, unique = true)
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
     public Customer(String name, String lastname, String phoneNumber) {
