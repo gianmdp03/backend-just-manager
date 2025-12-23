@@ -3,6 +3,7 @@ package com.gianmdp03.gestor_just_backend.service.impl;
 import com.gianmdp03.gestor_just_backend.dto.location.LocationDetailDTO;
 import com.gianmdp03.gestor_just_backend.dto.location.LocationListDTO;
 import com.gianmdp03.gestor_just_backend.dto.location.LocationRequestDTO;
+import com.gianmdp03.gestor_just_backend.dto.location.LocationUpdateDTO;
 import com.gianmdp03.gestor_just_backend.exception.ConflictException;
 import com.gianmdp03.gestor_just_backend.exception.NotFoundException;
 import com.gianmdp03.gestor_just_backend.mapper.LocationMapper;
@@ -26,6 +27,16 @@ public class LocationServiceImpl implements LocationService {
     @Transactional
     public LocationDetailDTO addLocation(LocationRequestDTO locationRequestDTO) {
         Location location = locationRepository.save(locationMapper.toEntity(locationRequestDTO));
+        return locationMapper.toDetailDto(location);
+    }
+
+    @Override
+    @Transactional
+    public LocationDetailDTO updateLocation(Long id, LocationUpdateDTO dto) {
+        Location location = locationRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("Location ID does not exist"));
+        locationMapper.updateEntityFromDto(dto, location);
+        location = locationRepository.save(location);
         return locationMapper.toDetailDto(location);
     }
 
