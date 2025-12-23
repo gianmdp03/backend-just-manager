@@ -12,8 +12,10 @@ import com.gianmdp03.gestor_just_backend.repository.OrderRepository;
 import com.gianmdp03.gestor_just_backend.repository.ProductRepository;
 import com.gianmdp03.gestor_just_backend.service.OrderItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Pageable;
 
 @Service
 @RequiredArgsConstructor
@@ -35,12 +37,18 @@ public class OrderItemServiceImpl implements OrderItemService {
         orderItem.setOrder(order);
         orderItem.setProduct(product);
         orderItem = orderItemRepository.save(orderItem);
-        
+
         return orderItemMapper.toListDto(orderItem);
     }
 
     @Override
-    public OrderItemListDTO listOrderItems(Long orderId) {
-        return null;
+    public Page<OrderItemListDTO> listOrderItems(Long orderId, Pageable pageable) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new NotFoundException("Order id does not exist"));
+        Page<OrderItem> page = orderItemRepository.findAllByOrder(order, pageable);
+        if(page.isEmpty()){
+            return Page.empty();
+        }
+        return page.map(orderItemMapper::toListDto);
     }
 }
