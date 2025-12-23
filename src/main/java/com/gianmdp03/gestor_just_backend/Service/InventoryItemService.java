@@ -12,7 +12,6 @@ public interface InventoryItemService {
     Page<InventoryItemListDTO> listInventoryItems(Pageable pageable);
     Page<InventoryItemListDTO> listInventoryItemsByProduct(Long productId, Pageable pageable);
     Page<InventoryItemListDTO> listInventoryItemsByLocation(Long locationId, Pageable pageable);
-    Page<InventoryItemListDTO> listNonExpiredInventoryItems(Pageable pageable);
     Page<InventoryItemListDTO> listExpiredInventoryItems(Pageable pageable);
     void deleteInventoryItem(Long id);
 }

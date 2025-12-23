@@ -12,8 +12,8 @@ import java.time.LocalDate;
 
 @Repository
 public interface InventoryItemRepository extends JpaRepository<InventoryItem, Long> {
-    Page<InventoryItem> findAllByProduct(Product product, Pageable pageable);
-    Page<InventoryItem> findAllByLocation(Location location, Pageable pageable);
+    Page<InventoryItem> findAllByProductAndExpireDateBefore(Product product, LocalDate date, Pageable pageable);
+    Page<InventoryItem> findAllByLocationAndExpireDateBefore(Location location, LocalDate date, Pageable pageable);
     Page<InventoryItem> findByExpireDateBefore(LocalDate date, Pageable pageable);
     Page<InventoryItem> findByExpireDateGreaterThanEqual(LocalDate date, Pageable pageable);
 }
