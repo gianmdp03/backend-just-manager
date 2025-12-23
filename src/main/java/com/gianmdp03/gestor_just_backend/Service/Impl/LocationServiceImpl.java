@@ -3,6 +3,7 @@ package com.gianmdp03.gestor_just_backend.service.impl;
 import com.gianmdp03.gestor_just_backend.dto.location.LocationDetailDTO;
 import com.gianmdp03.gestor_just_backend.dto.location.LocationListDTO;
 import com.gianmdp03.gestor_just_backend.dto.location.LocationRequestDTO;
+import com.gianmdp03.gestor_just_backend.exception.ConflictException;
 import com.gianmdp03.gestor_just_backend.exception.NotFoundException;
 import com.gianmdp03.gestor_just_backend.mapper.LocationMapper;
 import com.gianmdp03.gestor_just_backend.model.Location;
@@ -39,7 +40,11 @@ public class LocationServiceImpl implements LocationService {
     @Override
     @Transactional
     public void deleteLocation(Long id) {
-        locationRepository.delete(locationRepository.findById(id).orElseThrow
-                (() -> new NotFoundException("Location ID does not exist")));
+        Location location = locationRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Location ID does not exist"));
+        if(!(location.getInventoryItems().isEmpty())){
+            throw new ConflictException("Cannot delete, location has inventory items");
+        }
+        locationRepository.delete(location);
     }
 }
