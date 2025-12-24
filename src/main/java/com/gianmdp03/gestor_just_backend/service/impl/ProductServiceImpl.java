@@ -35,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
         if(optionalProduct.isPresent()){
             Product existingProduct = optionalProduct.get();
             existingProduct.setEnabled(true);
+            existingProduct.setImageUrl(productRequestDTO.imageUrl());
             existingProduct = productRepository.save(existingProduct);
             return productMapper.toDetailDto(existingProduct);
         }
