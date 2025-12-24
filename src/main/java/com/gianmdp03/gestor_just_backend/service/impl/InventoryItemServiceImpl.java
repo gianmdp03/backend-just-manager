@@ -38,8 +38,10 @@ public class InventoryItemServiceImpl implements InventoryItemService {
         Location location = locationRepository.findById(inventoryItemRequestDTO.locationId()).orElseThrow(
                 () -> new NotFoundException("Location ID does not exist")
         );
-
-        InventoryItem inventoryItem = inventoryItemRepository.save(inventoryItemMapper.toEntity(inventoryItemRequestDTO));
+        InventoryItem inventoryItem = inventoryItemMapper.toEntity(inventoryItemRequestDTO);
+        inventoryItem.setProduct(product);
+        inventoryItem.setLocation(location);
+        inventoryItem = inventoryItemRepository.save(inventoryItem);
         return inventoryItemMapper.toListDto(inventoryItem);
     }
 
