@@ -53,6 +53,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<ProductListDTO> searchByName(String name, Pageable pageable) {
+        Page<Product> page = productRepository.findAllByNameContainingIgnoreCaseAndEnabledTrue(name, pageable);
+        if(page.isEmpty()){
+            return Page.empty();
+        }
+        return page.map(productMapper::toListDto);
+    }
+
+    @Override
     public Page<ProductListDTO> listProducts(Pageable pageable) {
         Page<Product> page = productRepository.findAllByEnabledTrue(pageable);
         if(page.isEmpty())

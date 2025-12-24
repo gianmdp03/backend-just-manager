@@ -31,6 +31,13 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(productService.updateProduct(id, dto));
     }
 
+    @GetMapping("/{name}")
+    public ResponseEntity<Page<ProductListDTO>> searchByName(
+            @PathVariable String name,
+            @PageableDefault(page = 0, size = 10, sort = "name", direction = Sort.Direction.DESC) Pageable pageable){
+        return ResponseEntity.status(HttpStatus.OK).body(productService.searchByName(name, pageable));
+    }
+
     @GetMapping
     public ResponseEntity<Page<ProductListDTO>> listProducts(
             @PageableDefault(page = 0, size = 10, sort = "name", direction = Sort.Direction.DESC) Pageable pageable){
