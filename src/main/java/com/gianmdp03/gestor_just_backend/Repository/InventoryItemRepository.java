@@ -16,4 +16,5 @@ public interface InventoryItemRepository extends JpaRepository<InventoryItem, Lo
     Page<InventoryItem> findAllByLocationAndExpireDateBefore(Location location, LocalDate date, Pageable pageable);
     Page<InventoryItem> findByExpireDateBefore(LocalDate date, Pageable pageable);
     Page<InventoryItem> findByExpireDateGreaterThanEqual(LocalDate date, Pageable pageable);
+    boolean existsByLocation(Location location);
 }

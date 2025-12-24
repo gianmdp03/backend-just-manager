@@ -8,6 +8,7 @@ import com.gianmdp03.gestor_just_backend.exception.ConflictException;
 import com.gianmdp03.gestor_just_backend.exception.NotFoundException;
 import com.gianmdp03.gestor_just_backend.mapper.LocationMapper;
 import com.gianmdp03.gestor_just_backend.model.Location;
+import com.gianmdp03.gestor_just_backend.repository.InventoryItemRepository;
 import com.gianmdp03.gestor_just_backend.repository.LocationRepository;
 import com.gianmdp03.gestor_just_backend.service.LocationService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LocationServiceImpl implements LocationService {
     private final LocationRepository locationRepository;
     private final LocationMapper locationMapper;
+    private final InventoryItemRepository inventoryItemRepository;
 
     @Override
     @Transactional
@@ -62,7 +64,7 @@ public class LocationServiceImpl implements LocationService {
     public void deleteLocation(Long id) {
         Location location = locationRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Location ID does not exist"));
-        if(!(location.getInventoryItems().isEmpty())){
+        if(inventoryItemRepository.existsByLocation(location)){
             throw new ConflictException("Cannot delete, location has inventory items");
         }
         locationRepository.delete(location);
