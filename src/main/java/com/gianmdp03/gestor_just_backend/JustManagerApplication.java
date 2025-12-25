@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GestorJustApplication {
+public class JustManagerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GestorJustApplication.class, args);
+	static void main(String[] args) {
+		SpringApplication.run(JustManagerApplication.class, args);
 	}
 
 }

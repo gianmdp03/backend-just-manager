@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.gianmdp03</groupId>
-	<artifactId>gestor-just-backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Gestor-Just</name>
-	<description>Sistema de gestión de inventario y ventas</description>
+	<artifactId>backend-just-manager</artifactId>
+	<version>1.0.0</version>
+	<name>Just-Manager</name>
+	<description>Inventory manager</description>
 	<url/>
 	<licenses>
 		<license/>
