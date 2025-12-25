@@ -57,7 +57,7 @@ public class InventoryItemServiceImpl implements InventoryItemService {
 
     @Override
     public Page<InventoryItemListDTO> listInventoryItems(Pageable pageable) {
-        Page<InventoryItem> page = inventoryItemRepository.findByExpireDateBefore(LocalDate.now(), pageable);
+        Page<InventoryItem> page = inventoryItemRepository.findByExpireDateGreaterThanEqual(LocalDate.now(), pageable);
         if(page.isEmpty())
             throw new NotFoundException("List is empty");
         return page.map(inventoryItemMapper::toListDto);
@@ -66,7 +66,7 @@ public class InventoryItemServiceImpl implements InventoryItemService {
     @Override
     public Page<InventoryItemListDTO> listInventoryItemsByProduct(Long productId, Pageable pageable) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException("Product ID does not exist"));
-        Page<InventoryItem> page = inventoryItemRepository.findAllByProductAndExpireDateBefore(product, LocalDate.now(), pageable);
+        Page<InventoryItem> page = inventoryItemRepository.findAllByProductAndExpireDateGreaterThanEqual(product, LocalDate.now(), pageable);
         if(page.isEmpty())
             throw new NotFoundException("List is empty");
         return page.map(inventoryItemMapper::toListDto);
@@ -75,7 +75,7 @@ public class InventoryItemServiceImpl implements InventoryItemService {
     @Override
     public Page<InventoryItemListDTO> listInventoryItemsByLocation(Long locationId, Pageable pageable) {
         Location location = locationRepository.findById(locationId).orElseThrow(() -> new NotFoundException("Location ID does not exist"));
-        Page<InventoryItem> page = inventoryItemRepository.findAllByLocationAndExpireDateBefore(location, LocalDate.now(), pageable);
+        Page<InventoryItem> page = inventoryItemRepository.findAllByLocationAndExpireDateGreaterThanEqual(location, LocalDate.now(), pageable);
         if(page.isEmpty())
             throw new NotFoundException("List is empty");
         return page.map(inventoryItemMapper::toListDto);
@@ -83,7 +83,7 @@ public class InventoryItemServiceImpl implements InventoryItemService {
 
     @Override
     public Page<InventoryItemListDTO> listExpiredInventoryItems(Pageable pageable) {
-        Page<InventoryItem> page = inventoryItemRepository.findByExpireDateGreaterThanEqual(LocalDate.now(), pageable);
+        Page<InventoryItem> page = inventoryItemRepository.findByExpireDateBefore(LocalDate.now(), pageable);
         if(page.isEmpty())
             throw new NotFoundException("List is empty");
         return page.map(inventoryItemMapper::toListDto);

@@ -12,9 +12,9 @@ import java.time.LocalDate;
 
 @Repository
 public interface InventoryItemRepository extends JpaRepository<InventoryItem, Long> {
-    Page<InventoryItem> findAllByProductAndExpireDateBefore(Product product, LocalDate date, Pageable pageable);
-    Page<InventoryItem> findAllByLocationAndExpireDateBefore(Location location, LocalDate date, Pageable pageable);
-    Page<InventoryItem> findByExpireDateBefore(LocalDate date, Pageable pageable);
+    Page<InventoryItem> findAllByProductAndExpireDateGreaterThanEqual(Product product, LocalDate date, Pageable pageable);
+    Page<InventoryItem> findAllByLocationAndExpireDateGreaterThanEqual(Location location, LocalDate date, Pageable pageable);
     Page<InventoryItem> findByExpireDateGreaterThanEqual(LocalDate date, Pageable pageable);
+    Page<InventoryItem> findByExpireDateBefore(LocalDate date, Pageable pageable);
     boolean existsByLocation(Location location);
 }
