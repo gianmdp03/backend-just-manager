@@ -55,6 +55,13 @@ public class InventoryItemController {
         return ResponseEntity.status(HttpStatus.OK).body(inventoryItemService.listExpiredInventoryItems(pageable));
     }
 
+    @GetMapping("/almost/{days}")
+    public ResponseEntity<Page<InventoryItemListDTO>> listExpiringSoonInventoryItems(
+            @PathVariable int days, @PageableDefault(page = 0, size = 10, sort = "expireDate", direction = Sort.Direction.DESC) Pageable pageable)
+    {
+        return ResponseEntity.status(HttpStatus.OK).body(inventoryItemService.listExpiringSoonInventoryItems(days, pageable));
+    }
+
     @GetMapping("/id/{id}")
     public ResponseEntity<InventoryItemListDTO> getInventoryItemById(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(inventoryItemService.getInventoryItemById(id));

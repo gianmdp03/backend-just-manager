@@ -82,6 +82,16 @@ public class InventoryItemServiceImpl implements InventoryItemService {
     }
 
     @Override
+    public Page<InventoryItemListDTO> listExpiringSoonInventoryItems(int days, Pageable pageable){
+        Page<InventoryItem> page = inventoryItemRepository.findByExpireDateBetween
+                (LocalDate.now(), LocalDate.now().plusDays(days), pageable);
+        if(page.isEmpty()){
+            return Page.empty();
+        }
+        return page.map(inventoryItemMapper::toListDto);
+    }
+
+    @Override
     public Page<InventoryItemListDTO> listExpiredInventoryItems(Pageable pageable) {
         Page<InventoryItem> page = inventoryItemRepository.findByExpireDateBefore(LocalDate.now(), pageable);
         if(page.isEmpty())
