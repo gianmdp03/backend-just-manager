@@ -34,13 +34,13 @@ public class ProductController {
     @GetMapping("/{name}")
     public ResponseEntity<Page<ProductListDTO>> searchByName(
             @PathVariable String name,
-            @PageableDefault(page = 0, size = 10, sort = "name", direction = Sort.Direction.DESC) Pageable pageable){
+            @PageableDefault(page = 0, size = 18, sort = "name", direction = Sort.Direction.DESC) Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK).body(productService.searchByName(name, pageable));
     }
 
     @GetMapping
     public ResponseEntity<Page<ProductListDTO>> listProducts(
-            @PageableDefault(page = 0, size = 10, sort = "name", direction = Sort.Direction.DESC) Pageable pageable){
+            @PageableDefault(page = 0, size = 18, sort = "name", direction = Sort.Direction.DESC) Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK).body(productService.listProducts(pageable));
     }
 
