@@ -1,4 +1,4 @@
-package com.gianmdp03.gestor_just_backend.security.service;
+package com.gianmdp03.gestor_just_backend.security.service.impl;
 
-public interface AuthenticationService {
+public class AuthenticationServiceImpl {
 }
