@@ -1,4 +1,4 @@
-package com.gianmdp03.gestor_just_backend.config;
+package com.gianmdp03.gestor_just_backend.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
