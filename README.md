@@ -1,6 +1,6 @@
-# 🌿 Just-Manager Backend API
+# 🌿 Soft-Manager Backend API
 
-A comprehensive "Full-Stack" inventory, sales, and customer management system, developed as a RESTful API in Spring Boot. This backend is specifically designed to manage physical stock, strictly control product expiration dates (ideal for cosmetics, essential oils, and wellness products), manage storage locations, and process sales orders.
+A comprehensive "Full-Stack" inventory, sales, and customer management system, developed as a RESTful API in Spring Boot. This backend is specifically designed for **catalog sales and direct sales businesses**. It allows independent consultants and sellers to efficiently manage their physical stock on hand, strictly control product expiration dates (ideal for cosmetics, essential oils, and wellness products), manage storage locations, and process customer orders.
 
 ## 🚀 Technologies Used
 
@@ -30,7 +30,7 @@ The project is built with a modern and robust stack based on the Spring ecosyste
 The API has built-in pagination for almost all `GET` methods (default `page=0`, `size=18`). 
 
 ### 👥 1. Customers (`/api/customers`)
-Management of the customer list and their contact information.
+Management of the customer portfolio for your catalog sales.
 
 * `POST /api/customers` - Create a new customer.
     * **Body:** `{"fullname": "Juan Perez", "phoneNumber": "2231112222"}`
@@ -41,7 +41,7 @@ Management of the customer list and their contact information.
 * `DELETE /api/customers/{id}` - Delete a customer.
 
 ### 📦 2. Products (`/api/products`)
-Product catalog (e.g., "Eucasol", "Oleo 31"). Features *soft deletion*.
+Catalog of available products (e.g., "Eucasol", "Oleo 31"). Features *soft deletion* to keep historical sales records intact even if a product is discontinued from the catalog.
 
 * `POST /api/products` - Create a new product.
     * **Body:** `{"name": "Thyme Cream", "imageUrl": "image_url.jpg"}`
@@ -52,7 +52,7 @@ Product catalog (e.g., "Eucasol", "Oleo 31"). Features *soft deletion*.
 * `DELETE /api/products/{id}` - Soft delete a product (`enabled = false`).
 
 ### 📍 3. Locations (`/api/locations`)
-Management of physical spaces where stock is stored (e.g., "Shelf A", "Safe Box").
+Management of physical spaces where you store your personal stock (e.g., "Shelf A", "Display Bag", "Safe Box").
 
 * `POST /api/locations` - Register a new location.
     * **Body:** `{"name": "Main Cabinet"}`
@@ -60,30 +60,30 @@ Management of physical spaces where stock is stored (e.g., "Shelf A", "Safe Box"
 * `GET /api/locations/{name}` - Search location by name.
 * `GET /api/locations/id/{id}` - View location and its associated items.
 * `PATCH /api/locations/{id}` - Update location name.
-* `DELETE /api/locations/{id}` - Delete location (Throws `ConflictException 409` if it contains stock).
+* `DELETE /api/locations/{id}` - Delete location (Throws `ConflictException 409` if it currently holds stock).
 
 ### 🗃️ 4. Inventory (`/api/inventory-items`)
-The core of stock control. Links Products, Locations, Quantities, and **Expiration Dates**.
+The core of stock control for independent consultants. Links Products, Locations, Quantities, and **Expiration Dates** (crucial for wellness/cosmetic products).
 *(Note: `{localDate}` must be in `YYYY-MM-DD` format)*.
 
-* `POST /api/inventory-items` - Enter a new batch into stock.
+* `POST /api/inventory-items` - Enter a new batch received from the supplier into your personal stock.
     * **Body:** `{"productId": 1, "locationId": 2, "stock": 50, "expireDate": "2026-12-31"}`
 * `GET /api/inventory-items/{localDate}` - List all valid stock from a given date onwards.
-* `GET /api/inventory-items/{localDate}/product/{productId}` - View stock for a specific product.
-* `GET /api/inventory-items/{localDate}/location/{locationId}` - View all stock in a specific location.
+* `GET /api/inventory-items/{localDate}/product/{productId}` - View your current on-hand stock for a specific product.
+* `GET /api/inventory-items/{localDate}/location/{locationId}` - View all stock in a specific storage location.
 * `GET /api/inventory-items/{localDate}/expired` - 🚨 **EXPIRED stock report** prior to the given date.
-* `GET /api/inventory-items/{localDate}/almost/{days}` - ⚠️ **Expiring soon report** for stock expiring in the next `X` days.
+* `GET /api/inventory-items/{localDate}/almost/{days}` - ⚠️ **Expiring soon report** for stock expiring in the next `X` days (great for running promotions on aging stock).
 * `PATCH /api/inventory-items/{id}` - Update quantity or move to another location.
     * **Body:** `{"stock": 45, "locationId": 3}`
 * `DELETE /api/inventory-items/{id}` - Delete an inventory record.
 
 ### 🛒 5. Orders / Sales (`/api/orders`)
-Registration of sales to customers with multiple items.
+Registration of sales made to your customers, supporting multiple items per order.
 
 * `POST /api/orders/{localDateTime}/{customerId}` - Create a new sale with its items. *(e.g., `2026-03-07T10:15:30`)*.
     * **Body:** `[ {"productId": 1, "amount": 2}, {"productId": 3, "amount": 1} ]`
 * `GET /api/orders` - General sales history.
-* `GET /api/orders/{startDate}/{endDate}` - Filter sales by date range (`YYYY-MM-DD`/`YYYY-MM-DD`).
+* `GET /api/orders/{startDate}/{endDate}` - Filter sales by date range (`YYYY-MM-DD`/`YYYY-MM-DD`) to calculate monthly earnings.
 * `GET /api/orders/id/{id}` - Get the full detail of an order and its items.
 * `GET /api/orders/{orderId}` - Secondary interface to list only the items of a specific order.
 * `DELETE /api/orders/{id}` - Cancel/Delete a sale (Cascades to delete items).
@@ -92,7 +92,7 @@ Registration of sales to customers with multiple items.
 ---
 
 ## 🔒 Security (JWT Authentication)
-The application includes the domain infrastructure for `User` and `Role`. JWT token validation restricts access to the API (internal system management). For registration or login, it will be validated through the `AuthenticationRequest` DTOs, and the response will provide a `token` in JWT format.
+The application includes the domain infrastructure for `User` and `Role`. JWT token validation restricts access to the API (securing your business data). For registration or login, it will be validated through the `AuthenticationRequest` DTOs, and the response will provide a `token` in JWT format.
 
 ## 🛠️ How to run the project locally
 
